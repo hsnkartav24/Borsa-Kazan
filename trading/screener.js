@@ -1,3 +1,5 @@
+const API_KEY = "4UWZxxcgBTUT2Qrc5xqfDwRK2CyKoy49";   // <<< kendi key
+
 const bist = ["THYAO","GARAN","ASELS","KRDMD","EREGL"];
 
 async function scan(){
@@ -10,23 +12,23 @@ async function scan(){
 
   try{
 
-   const r = await fetch(
-   "https://financialmodelingprep.com/api/v3/quote/"+s+".IS?apikey=demo"
-   );
+   const url =
+   `https://financialmodelingprep.com/api/v3/quote/${s}.IS?apikey=${API_KEY}`;
 
+   const r = await fetch(url);
    const d = await r.json();
 
    if(!d || !d[0]){
-    out += s + " veri alınamadı<br>";
+    out += s + " veri yok<br>";
     continue;
    }
 
    const price = d[0].price;
 
    if(price < 50){
-    out += "🟢 " + s + " uygun fiyat bölgesi ("+price+")<br>";
+    out += "🟢 " + s + " uygun fiyat ("+price+")<br>";
    }else{
-    out += "⚪ " + s + " pahalı ("+price+")<br>";
+    out += "⚪ " + s + " fiyat: "+price+"<br>";
    }
 
   }catch(e){
